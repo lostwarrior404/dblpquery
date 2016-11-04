@@ -117,31 +117,6 @@ public class Parser {
        System.out.println();
    }
    
-   private void publicationCountStatistics() {
-       Iterator i = Person.iterator();
-       Person p;
-       int l = Person.getMaxPublCount();
-       int countTable[] = new int[l+1];
-       int j, n;
-       
-       System.out.println();
-       System.out.println("Number of publications: Number of persons");
-       while (i.hasNext()) {
-           p = (Person) i.next();
-           countTable[p.getCount()]++;
-       }
-       n = 0;
-       for (j=1; j <= l; j++) {
-           if (countTable[j] == 0)
-               continue;
-           n++;
-           System.out.print(j + ": " + countTable[j]+ "  ");
-           if (n%5 == 0)
-               System.out.println();
-       }
-       System.out.println();
-   }
-   
    Parser(String uri) {
       try {
          SAXParserFactory parserFactory = SAXParserFactory.newInstance();
