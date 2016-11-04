@@ -96,27 +96,6 @@ public class Parser {
         }
     }
 
-   private void nameLengthStatistics() {
-       Iterator i = Person.iterator();
-       Person p;
-       int l = Person.getMaxNameLength();
-       int lengthTable[] = new int[l+1];
-       int j;
-       
-       System.out.println();
-       System.out.println("Name length: Number of persons");
-       while (i.hasNext()) {
-           p = (Person) i.next();
-           lengthTable[p.getName().length()]++;
-       }
-       for (j=1; j <= l; j++) {
-           System.out.print(j + ": " + lengthTable[j]+ "  ");
-           if (j%5 == 0)
-               System.out.println();
-       }
-       System.out.println();
-   }
-   
    Parser(String uri) {
       try {
          SAXParserFactory parserFactory = SAXParserFactory.newInstance();
@@ -134,7 +113,6 @@ public class Parser {
                 e.getMessage());
       }
       System.out.println("Number of Persons : " + Person.numberOfPersons());
-      nameLengthStatistics();
       System.out.println("Number of Publications with authors/editors: " + 
                          Publication.getNumberOfPublications());
       System.out.println("Maximum number of authors/editors in a publication: " +
