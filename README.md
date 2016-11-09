@@ -1,8 +1,8 @@
-CSE201 Final Project - DBLP QUERY ENGINE
+#CSE201 Final Project - DBLP QUERY ENGINE
 =====
-#UML updated
-#Working On UML
-#UML complete and added.
-#Started working on parsing.
-#Some problem with parsing will retry tommorow.
+1.UML updated
+2.Working On UML
+3.UML complete and added.
+4.Started working on parsing.
+5.Some problem with parsing will retry tommorow.
 
