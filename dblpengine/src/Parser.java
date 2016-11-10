@@ -20,10 +20,6 @@ public class Parser {
 
         private boolean insidePerson;
 
-        public void setDocumentLocator(Locator locator) {
-            this.locator = locator;
-        }
-
         public void startElement(String namespaceURI, String localName,
                 String rawName, Attributes atts) throws SAXException {
             String k;
