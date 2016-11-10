@@ -61,12 +61,7 @@ public class Parser {
             }
         }
 
-        public void characters(char[] ch, int start, int length)
-                throws SAXException {
-            if (insidePerson)
-                Value += new String(ch, start, length);
-        }
-
+       
         private void Message(String mode, SAXParseException exception) {
             System.out.println(mode + " Line: " + exception.getLineNumber()
                     + " URI: " + exception.getSystemId() + "\n" + " Message: "
