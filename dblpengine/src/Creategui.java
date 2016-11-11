@@ -17,7 +17,16 @@ public class GUI {
         titletop=createTitletop();
         leftpane=createLeftpane();
         rightpane=createRightpane();
+        myframe.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        myframe.setSize(1000,1000);
         myframe.setLayout(new FlowLayout());
+        //myframe.add(Box.createRigidArea(new Dimension(285,100)));
+        titletop.setAlignmentX(Component.CENTER_ALIGNMENT);
+        myframe.add(titletop);
+        myframe.add(Box.createRigidArea(new Dimension(100,100)));
+        myframe.add(leftpane);
+        myframe.add(rightpane);
+        myframe.setVisible(true);
     }
     public JPanel createLeftpane(){
          
