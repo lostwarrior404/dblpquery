@@ -5,6 +5,8 @@ public class GUI {
     public JLabel titletop;
     public JPanel leftpane;
     public JPanel rightpane;
+    Line2D horizontalLine; // Declare your variables here, but don't initialize them
+    Line2D verticalLine;
     
     
     public GUI(){
