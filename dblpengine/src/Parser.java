@@ -1,125 +1,123 @@
-import java.io.*;
-import java.util.*;
-import javax.xml.parsers.*;
-import org.xml.sax.*;
-import org.xml.sax.helpers.*;
-
-public class Parser {
-   
-   private final int maxAuthorsPerPaper = 200;
-
-   private class ConfigHandler extends DefaultHandler {
-
-        private Locator locator;
-
-        private String Value;
-        private String key;
-        private String recordTag;
-        private Person[] persons= new Person[maxAuthorsPerPaper];
-        private int numberOfPersons = 0;
-
-        private boolean insidePerson;
-
-        public void startElement(String namespaceURI, String localName,
-                String rawName, Attributes atts) throws SAXException {
-            String k;
-            
-            if (insidePerson = (rawName.equals("author") || rawName
-                    .equals("editor"))) {
-                Value = "";
-                return;
-            }
-            if ((atts.getLength()>0) && ((k = atts.getValue("key"))!=null)) {
-                key = k;
-                recordTag = rawName;   
-            }
-        }
-
-        public void endElement(String namespaceURI, String localName,
-                String rawName) throws SAXException {
-            if (rawName.equals("author") || rawName.equals("editor")) {
-
-                Person p;
-                if ((p = Person.searchPerson(Value)) == null) {
-                    p = new Person(Value);
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import org.xml.sax.Attributes;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
+import org.xml.sax.helpers.DefaultHandler;
+public class Parser{
+    void parse(String file_path){
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        try {
+            SAXParser saxParser = factory.newSAXParser();
+            DefaultHandler handler = new DefaultHandler(){
+            boolean author_present = false;
+            boolean title_present = false;
+            boolean pages_present = false;
+            boolean year_present = false;
+            boolean volume_present = false;
+            boolean journal_present = false;
+            boolean booktitle_present = false;
+            boolean url_present = false;
+            String k;//String to store key
+            public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+                if(     qName.equalsIgnoreCase("article")|
+                        qName.equalsIgnoreCase("inproceedings")|
+                        qName.equalsIgnoreCase("proceedings")|
+                        qName.equalsIgnoreCase("book")|
+                        qName.equalsIgnoreCase("incollection")|
+                        qName.equalsIgnoreCase("phdthesis")|
+                        qName.equalsIgnoreCase("mastersthesis")|
+                        qName.equalsIgnoreCase("www")){
+                    System.out.println(qName+" started:");
+                    if(attributes.getLength()>0 && (k=attributes.getValue("key"))!=null){
+                        System.out.println("key = "+k);
+                    }
                 }
-                p.increment();
-                if (numberOfPersons<maxAuthorsPerPaper)
-                    persons[numberOfPersons++] = p;
-                return;
-            }
-            if (rawName.equals(recordTag)) {
-                if (numberOfPersons == 0)
-                    return;
-                Person pa[] = new Person[numberOfPersons];
-                for (int i=0; i<numberOfPersons; i++) {
-                    pa[i] = persons[i];
-                    persons[i] = null;
+                if(qName.equalsIgnoreCase("author")){
+                    author_present = true;
                 }
-                Publication p = new Publication(key,pa);
-                numberOfPersons = 0;
+                if(qName.equalsIgnoreCase("title")){
+                    title_present = true;
+                }
+                if(qName.equalsIgnoreCase("pages")){
+                    pages_present = true;
+                }
+                if(qName.equalsIgnoreCase("year")){
+                    year_present = true;
+                }
+                if(qName.equalsIgnoreCase("volume")){
+                    volume_present = true;
+                }
+                if(qName.equalsIgnoreCase("journal")){
+                    journal_present = true;
+                }
+                if(qName.equalsIgnoreCase("booktitle")){
+                    booktitle_present = true;
+                }
+                if(qName.equalsIgnoreCase("url")){
+                    url_present = true;
+                }
             }
-        }
 
-       
-        private void Message(String mode, SAXParseException exception) {
-            System.out.println(mode + " Line: " + exception.getLineNumber()
-                    + " URI: " + exception.getSystemId() + "\n" + " Message: "
-                    + exception.getMessage());
-        }
+            public void characters(char[] ch, int start, int length) throws SAXException {
+                if(author_present){
+                    System.out.println("Author :"+new String(ch,start,length));
+                    author_present=false;
+                }
+                if(title_present){
+                    System.out.println("Title :"+new String(ch,start,length));
+                    title_present=false;
+                }
+                if(pages_present){
+                    System.out.println("Pages :"+new String(ch,start,length));
+                    pages_present=false;
+                }
+                if(year_present){
+                    System.out.println("Year :"+new String(ch,start,length));
+                    year_present=false;
+                }
+                if(volume_present){
+                    System.out.println("Volume :"+new String(ch,start,length));
+                    volume_present = false;
+                }
+                if(journal_present){
+                    System.out.println("Journal :"+new String(ch,start,length));
+                    journal_present = false;
+                }
+                if(booktitle_present){
+                    System.out.println("Book Title :"+new String(ch,start,length));
+                    booktitle_present = false;
+                }
+                if(url_present){
+                    System.out.println("URL :"+new String(ch,start,length));
+                    url_present = false;
+                }
 
-        public void warning(SAXParseException exception) throws SAXException {
+            }
 
-            Message("**Parsing Warning**\n", exception);
-            throw new SAXException("Warning encountered");
-        }
-
-        public void error(SAXParseException exception) throws SAXException {
-
-            Message("**Parsing Error**\n", exception);
-            throw new SAXException("Error encountered");
-        }
-
-        public void fatalError(SAXParseException exception) throws SAXException {
-
-            Message("**Parsing Fatal Error**\n", exception);
-            throw new SAXException("Fatal Error encountered");
+            public void endElement(String uri, String localName, String qName) throws SAXException {
+                if(     qName.equalsIgnoreCase("article")|
+                        qName.equalsIgnoreCase("inproceedings")|
+                        qName.equalsIgnoreCase("proceedings")|
+                        qName.equalsIgnoreCase("book")|
+                        qName.equalsIgnoreCase("incollection")|
+                        qName.equalsIgnoreCase("phdthesis")|
+                        qName.equalsIgnoreCase("mastersthesis")|
+                        qName.equalsIgnoreCase("www")){
+                    System.out.println(qName+" ended.");
+                }
+                //Make object here;
+            }
+        };
+        saxParser.parse(file_path, handler);
+        }  catch (Exception e) {
+            e.printStackTrace();
         }
     }
-
-   Parser(String uri) {
-      try {
-         SAXParserFactory parserFactory = SAXParserFactory.newInstance();
-         SAXParser parser = parserFactory.newSAXParser();
-         ConfigHandler handler = new ConfigHandler();
-         parser.getXMLReader().setFeature(
-              "http://xml.org/sax/features/validation", true);
-         parser.parse(new File(uri), handler);
-      } catch (IOException e) {
-         System.out.println("Error reading URI: " + e.getMessage());
-      } catch (SAXException e) {
-         System.out.println("Error in parsing: " + e.getMessage());
-      } catch (ParserConfigurationException e) {
-         System.out.println("Error in XML parser configuration: " +
-                e.getMessage());
-      }
-      System.out.println("Number of Persons : " + Person.numberOfPersons());
-      System.out.println("Number of Publications with authors/editors: " + 
-                         Publication.getNumberOfPublications());
-      System.out.println("Maximum number of authors/editors in a publication: " +
-                         Publication.getMaxNumberOfAuthors());   
-      Person.enterPublications();
-      Person.printCoauthorTable();
-      Person.printNamePartTable();
-      Person.findSimilarNames();
-   }
-
-   public static void main(String[] args) {
-      if (args.length < 1) {
-         System.out.println("Usage: java Parser [input]");
-         System.exit(0);
-      }
-      Parser p = new Parser(args[0]);
-   }
 }
-
