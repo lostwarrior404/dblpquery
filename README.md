@@ -5,5 +5,5 @@
 3. UML complete and added.
 4. Started working on parsing.
 5. Some problem with parsing will retry tommorow.
-6.Working on GUI.
+6. Parser working.
 
