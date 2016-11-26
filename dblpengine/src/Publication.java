@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.StringJoiner;
 
 /**
  * Created by Saksham on 11/26/2016.
@@ -46,7 +45,7 @@ public class Publication implements Comparable<Publication>{
         year=a;
     }
     public int getYear(){
-        return Integer.parseInt(this.year);
+        return Integer.parseInt(year);
     }
     public Publication(){
 
