@@ -18,9 +18,9 @@ public class Query1 {
     public void createGui(){
         System.out.println("q1");
     }
-    public ArrayList<Publication> parse(String author){
+    public ArrayList<Publication> parse(String author,int type){
         Parser p=new Parser();
-        data = p.parse("dblp.xml",author);
+        data = p.parse("dblp.xml",author,type);
         return data;
     }
 }
