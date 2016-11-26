@@ -51,4 +51,7 @@ public class Publication {
     public Publication(){
 
     }
+    public String toString(){
+        return "Author "+author.get(0)+" Year "+year+" Title "+title+" Pages "+pages+" Url "+url+" Volume "+volume;
+    }
 }
