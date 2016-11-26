@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Scanner;
 
 /**
@@ -10,15 +11,21 @@ public class Main {
         Scanner in =new Scanner(System.in);
         String name=in.nextLine();
         System.setProperty("jdk.xml.entityExpansionLimit", "0");
-        Query1 q = new Query1();
-        ArrayList<Publication> res=q.parse(name);
-        for(Publication pu: res){
-            System.out.println(pu);
+//        Query1 q = new Query1();
+//        ArrayList<Publication> res=q.parse(name,2);
+//        for(Publication pu: res){
+//            System.out.println(pu);
+//        }
+//        res = q.sort(1);
+//        for(Publication pu: res){
+//            System.out.println(pu);
+//        }
+        EntityResolutionParser e = new EntityResolutionParser();
+        HashSet<String> res = e.parse("dblp.xml",name);
+        for(String pr:res){
+            System.out.println(pr);
         }
-        res = q.sort(1);
-        for(Publication pu: res){
-            System.out.println(pu);
-        }
+
 //        Query1 hey=new Query1();
     }
 }

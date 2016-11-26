@@ -8,12 +8,14 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+
 public class EntityResolutionParser {
-    ArrayList<String> parse(String file_path, final String author) {
+    HashSet<String> parse(String file_path, final String author) {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         try {
             SAXParser saxParser = factory.newSAXParser();
-            final ArrayList<String> result = new ArrayList<String>();
+            final HashSet<String> result = new HashSet<String>();
             DefaultHandler handler = new DefaultHandler() {
                 boolean publication = false;
                 boolean author_present = false;
@@ -23,7 +25,6 @@ public class EntityResolutionParser {
                 public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
                     if (qName.equalsIgnoreCase("www")) {
                         publication = true;
-                        alias = "";
 
                         //                    System.out.println(qName+" started:");
                         //                    if(attributes.getLength()>0 && (k=attributes.getValue("key"))!=null){
@@ -34,7 +35,6 @@ public class EntityResolutionParser {
                         author_present = true;
                     }
                 }
-
                 public void characters(char[] ch, int start, int length) throws SAXException {
                     if (author_present) {
                         data_acc += new String(ch, start, length);
@@ -44,25 +44,26 @@ public class EntityResolutionParser {
                 public void endElement(String uri, String localName, String qName) throws SAXException {
                     if (qName.equalsIgnoreCase("www")){
                         publication = false;
+                        if(!author_match){
+                            result.clear();
+                        }
                         if (author_match) {
-                            result.add(alias);
                             author_match = false;
                         }
-                        alias = null;
+
                     }
-
-
                     if (publication) {
                         if (qName.equalsIgnoreCase("author")) {
                             author_present = false;
-                            alias = data_acc;
+                            result.add(data_acc);
                             if (author.equalsIgnoreCase(data_acc)) {
                                 author_match = true;
                             }
                         }
-                    data_acc = "";
-                    //Make object here;
+                        data_acc = "";
+                    }//Make object here;
                 }
+
             };
             saxParser.parse(file_path, handler);
             return result;
