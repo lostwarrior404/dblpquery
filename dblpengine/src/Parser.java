@@ -5,11 +5,13 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 public class Parser{
-    void parse(String file_path){
+    Person parse(String file_path,int query_type,String parameters){
         SAXParserFactory factory = SAXParserFactory.newInstance();
         try {
             SAXParser saxParser = factory.newSAXParser();
             DefaultHandler handler = new DefaultHandler(){
+            boolean publication = false;
+            boolean names = false;
             boolean author_present = false;
             boolean title_present = false;
             boolean pages_present = false;
@@ -27,24 +29,22 @@ public class Parser{
                         qName.equalsIgnoreCase("book")|
                         qName.equalsIgnoreCase("incollection")|
                         qName.equalsIgnoreCase("phdthesis")|
-                        qName.equalsIgnoreCase("mastersthesis")|
-                        qName.equalsIgnoreCase("www")){
-                    System.out.println(qName+" started:");
-                    if(attributes.getLength()>0 && (k=attributes.getValue("key"))!=null){
-                        System.out.println("key = "+k);
-                    }
+                        qName.equalsIgnoreCase("mastersthesis")
+                        ){
+                        publication = true;
+//                    System.out.println(qName+" started:");
+//                    if(attributes.getLength()>0 && (k=attributes.getValue("key"))!=null){
+//                        System.out.println("key = "+k);
+//                    }
                 }
                 if(qName.equalsIgnoreCase("author")){
                     author_present = true;
-                    data_acc = new String();
                 }
                 if(qName.equalsIgnoreCase("title")){
                     title_present = true;
-                    data_acc = new String();
                 }
                 if(qName.equalsIgnoreCase("pages")){
                     pages_present = true;
-                    data_acc = new String();
                 }
                 if(qName.equalsIgnoreCase("year")){
                     year_present = true;
@@ -82,9 +82,9 @@ public class Parser{
                         qName.equalsIgnoreCase("book")|
                         qName.equalsIgnoreCase("incollection")|
                         qName.equalsIgnoreCase("phdthesis")|
-                        qName.equalsIgnoreCase("mastersthesis")|
-                        qName.equalsIgnoreCase("www")){
-                    System.out.println(qName+" ended.");
+                        qName.equalsIgnoreCase("mastersthesis")
+                        ){
+                    publication = false;
                 }
                 if(qName.equalsIgnoreCase("author")){
                     author_present = false;
