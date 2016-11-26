@@ -1,9 +1,8 @@
-import java.util.ArrayList;
-import java.util.StringJoiner;
 
 /**
  * Created by Saksham on 11/26/2016.
  */
+import java.util.*;
 public class Publication {
 
     private ArrayList<String> author=new ArrayList<String>();
@@ -44,8 +43,5 @@ public class Publication {
     }
     public void setYear(String a){
         year=a;
-    }
-    public Publication(){
-
     }
 }
