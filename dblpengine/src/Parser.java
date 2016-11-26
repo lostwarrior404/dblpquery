@@ -7,7 +7,7 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.util.ArrayList;
 
 public class Parser{
-    ArrayList<Publication> parse(String file_path, final String author,final int type){
+    ArrayList<Publication> parse(String file_path, final String author){
         SAXParserFactory factory = SAXParserFactory.newInstance();
         try {
             SAXParser saxParser = factory.newSAXParser();
@@ -24,7 +24,7 @@ public class Parser{
                 boolean booktitle_present = false;
                 boolean url_present = false;
                 boolean author_match = false;
-                boolean title_match =false;
+                String k;//String to store key
                 String data_acc="";
                 Publication paper;
                 public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
@@ -91,17 +91,9 @@ public class Parser{
                             qName.equalsIgnoreCase("mastersthesis")
                             ){
                         publication = false;
-                        if(type==1){
-                            if(author_match){
-                                result.add(paper);
-                                author_match = false;
-                            }
-                        }
-                        if(type==2){
-                            if(title_match){
-                                result.add(paper);
-                                title_match = false;
-                            }
+                        if(author_match){
+                            result.add(paper);
+                            author_match = false;
                         }
                         paper = null;
                     }
@@ -116,9 +108,6 @@ public class Parser{
                         if (qName.equalsIgnoreCase("title")) {
                             title_present = false;
                             paper.setTitle(data_acc);
-                            if(author.equalsIgnoreCase(data_acc)){
-                                title_match = true;
-                            }
                             //System.out.println("title: "+data_acc);
                         }
                         if (qName.equalsIgnoreCase("pages")) {

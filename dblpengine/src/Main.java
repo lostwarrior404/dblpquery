@@ -11,7 +11,7 @@ public class Main {
         String name=in.nextLine();
         System.setProperty("jdk.xml.entityExpansionLimit", "0");
         Query1 q = new Query1();
-        ArrayList<Publication> res=q.parse(name,2);
+        ArrayList<Publication> res=q.parse(name);
         for(Publication pu: res){
             System.out.println(pu);
         }
