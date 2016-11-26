@@ -1,36 +1,21 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Query1 {
     ArrayList<Publication> data;
-    int type;
-    public Query1(ArrayList<Publication> a,int k){
-        this.data=a;
-        type=k;
-        sort();
-    }
-    public void sort(){
+    public ArrayList<Publication> sort(int type){
         if(type==1){
-            sortreverseDate();
+            Collections.sort(data);
         }
+        return data;
     }
-    public void sortreverseDate(){
-        int i, key, j;
-        Publication temp;
-        for (i = 1; i < data.size(); i++)
-        {
-            key = Integer.parseInt(data.get(i).getYear());
-            temp=data.get(i);
-            j = i-1;
-            while (j >= 0 && Integer.parseInt(data.get(j).getYear()) > key)
-            {
-                data.add(j+1,data.get(j));
-               j = j-1;
-            }
-            data.add(j+1,temp);
-        }
-    }
+
     public void createGui(){
         System.out.println("q1");
     }
-
+    public ArrayList<Publication> parse(String author){
+        Parser p=new Parser();
+        ArrayList<Publication> data = p.parse("dblp.xml",author);
+        return data;
+    }
 }

@@ -25,7 +25,7 @@ public class Parser{
                 boolean url_present = false;
                 boolean author_match = false;
                 String k;//String to store key
-                String data_acc;
+                String data_acc="";
                 Publication paper;
                 public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
                     if(     qName.equalsIgnoreCase("article")|
@@ -38,11 +38,11 @@ public class Parser{
                         publication = true;
                         paper = new Publication();
 
-    //                    System.out.println(qName+" started:");
-    //                    if(attributes.getLength()>0 && (k=attributes.getValue("key"))!=null){
-    //                        System.out.println("key = "+k);
-    //                    }
-                            }
+                        //                    System.out.println(qName+" started:");
+                        //                    if(attributes.getLength()>0 && (k=attributes.getValue("key"))!=null){
+                        //                        System.out.println("key = "+k);
+                        //                    }
+                    }
                     if(qName.equalsIgnoreCase("author")){
                         author_present = true;
                     }
@@ -141,11 +141,11 @@ public class Parser{
                             //System.out.println("url: "+data_acc);
                         }
                     }
-                    data_acc = null;
+                    data_acc = "";
                     //Make object here;
-            }
-        };
-        saxParser.parse(file_path, handler);
+                }
+            };
+            saxParser.parse(file_path, handler);
             return result;
         }  catch (Exception e) {
             e.printStackTrace();
