@@ -45,6 +45,9 @@ public class Publication {
     public void setYear(String a){
         year=a;
     }
+    public String getYear(){
+        return this.year;
+    }
     public Publication(){
 
     }
