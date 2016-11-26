@@ -60,6 +60,6 @@ public class Publication implements Comparable<Publication>{
 
     public int compareTo(Publication o) {
         return (this.getYear() < o.getYear() ? -1 :
-                (this.getYear() < o.getYear() ? 0 : 1));
+                (this.getYear() == o.getYear() ? 0 : 1));
     }
 }

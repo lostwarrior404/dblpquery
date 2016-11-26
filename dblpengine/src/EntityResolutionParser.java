@@ -21,9 +21,10 @@ public class EntityResolutionParser {
                 boolean author_present = false;
                 boolean author_match = false;
                 String data_acc = "";
-                String alias;
+                ArrayList<String> alias=new ArrayList<String>();
                 public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
                     if (qName.equalsIgnoreCase("www")) {
+                        //System.out.println(qName + "Started");
                         publication = true;
 
                         //                    System.out.println(qName+" started:");
@@ -36,7 +37,7 @@ public class EntityResolutionParser {
                     }
                 }
                 public void characters(char[] ch, int start, int length) throws SAXException {
-                    if (author_present) {
+                    if (author_present && publication) {
                         data_acc += new String(ch, start, length);
                     }
                 }
@@ -45,18 +46,24 @@ public class EntityResolutionParser {
                     if (qName.equalsIgnoreCase("www")){
                         publication = false;
                         if(!author_match){
-                            result.clear();
+                            alias.clear();
                         }
                         if (author_match) {
-                            author_match = false;
+                            for(String i:alias){
+                                result.add(i);
+                            }
+                            author_match=false;
                         }
 
                     }
                     if (publication) {
                         if (qName.equalsIgnoreCase("author")) {
                             author_present = false;
-                            result.add(data_acc);
+                            alias.add(data_acc);
+                            //System.out.println("Author: "+data_acc);
                             if (author.equalsIgnoreCase(data_acc)) {
+//                                int c=5555;
+//                                while(c--!=0){System.out.println("Mil gya!!");}
                                 author_match = true;
                             }
                         }
