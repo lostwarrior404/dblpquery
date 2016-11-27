@@ -118,7 +118,8 @@ public class Parser{
                         if (qName.equalsIgnoreCase("title")) {
                             title_present = false;
                             paper.setTitle(data_acc);
-                            if(author.equalsIgnoreCase(data_acc)){
+                            if(work.cosineSimilarity(author,data_acc)>0.6){
+                                paper.setSimilarity(work.cosineSimilarity(author,data_acc));
                                 title_match = true;
                             }
                             //System.out.println("title: "+data_acc);

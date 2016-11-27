@@ -13,6 +13,12 @@ public class Publication implements Comparable<Publication>{
     private String volume="";
     private String journal="";
     private String booktitle="";
+    private double similarity=0.0;
+
+    public void setSimilarity(double similarity) {
+        this.similarity = similarity;
+    }
+
     public void setAuthor(String a) {
         author.add(a);
     }
@@ -51,11 +57,13 @@ public class Publication implements Comparable<Publication>{
 
     }
     public String toString(){
-        if(author.get(0)==null){
+        if(author.size()==0){
             return "Author :none "+" Year "+year+" Title "+title+" Pages "+pages+" Url "+url+" Volume "+volume;
-
         }
-        return "Author "+author.get(0)+" Year "+year+" Title "+title+" Pages "+pages+" Url "+url+" Volume "+volume;
+        if( author.get(0)==null){
+            return "Author :none "+" Year "+year+" Title "+title+" Pages "+pages+" Url "+url+" Volume "+volume;
+        }
+        return "Author "+author.get(0)+" Year "+year+" Title "+title+" Pages "+pages+" Url "+url+" Volume "+volume+"Similarity"+similarity;
     }
 
     public int compareTo(Publication o) {
