@@ -5,5 +5,5 @@ import java.util.ArrayList;
  */
 public class WWWtag {
     ArrayList<String> allnames=new ArrayList<String>();
-    
+
 }

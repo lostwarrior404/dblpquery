@@ -64,7 +64,12 @@ public class Query2 {
                         www_present = false;
                         int sum=0;
                         for(String a:temp){
-                            sum+=maps.get(a);
+                            if(maps.get(a)!=null){
+                                sum+=maps.get(a);
+                            }
+                            else{
+                                maps.put(a,0);//risky a ahsdbfjhsvfjasdvhaj
+                            }
                         }
                         if(sum>=k){
                             result.add(temp.get(0));
@@ -74,6 +79,9 @@ public class Query2 {
                     if(www_present){
                         if(qName.equalsIgnoreCase("author")){
                             temp.add(data_acc);
+                            if(data_acc.equals("H. Vincent Poor")){
+                                System.out.println("akhsbdaihsbdjah"+maps.get(data_acc));
+                            }
                         }
                     }
                     if(publication){
