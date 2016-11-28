@@ -15,7 +15,7 @@
          this.year=year;
      }
 
-     public void setYear(int year1,int year 2){
+     public void setYear(int year1,int year2 2){
          this.year1=year1;
          this.year2=year2;
      }
