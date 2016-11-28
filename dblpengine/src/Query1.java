@@ -58,11 +58,14 @@ public class Query1 {
     public void createGui(){
         System.out.println("q1");
     }
-    public ArrayList<Publication> parse(String author,int type){
+    public ArrayList<Publication> parse(String name,int type){//give arraylist of string
         Parser p=new Parser();
+        ArrayList<String> author;
+        //an arraylist named author if search by author else an arraylist with title at index 0
+
         data = p.parse("dblp.xml",author,type);//author is an array
         this.setQtype(type);
-        this.setName(author);//can be name or title
+        this.setName(name);//can be name or title
         return data;
     }
 }

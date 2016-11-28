@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class Parser{
     ArrayList<String> www;
-    ArrayList<Publication> parse(String file_path, final String author,final int type){
+    ArrayList<Publication> parse(String file_path, final ArrayList<String> author,final int type){
         SAXParserFactory factory = SAXParserFactory.newInstance();
         try {
 
@@ -111,15 +111,17 @@ public class Parser{
                         if (qName.equalsIgnoreCase("author")) {
                             author_present = false;
                             paper.setAuthor(data_acc);
-                            if (author.equalsIgnoreCase(data_acc)) {
-                                author_match = true;
+                            for(String i:author){
+                                if(i.equalsIgnoreCase(data_acc)){
+                                    author_match=true;
+                                }
                             }
                         }
                         if (qName.equalsIgnoreCase("title")) {
                             title_present = false;
                             paper.setTitle(data_acc);
-                            if(work.cosineSimilarity(author,data_acc)>0.6){
-                                paper.setSimilarity(work.cosineSimilarity(author,data_acc));
+                            if(work.cosineSimilarity(author.get(0),data_acc)>0.6){
+                                paper.setSimilarity(work.cosineSimilarity(author.get(0),data_acc));
                                 title_match = true;
                             }
                             //System.out.println("title: "+data_acc);
