@@ -7,32 +7,36 @@ import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
+import java.io.BufferedWriter;
+import java.io.*;
+
+
 import java.util.ArrayList;
 import java.util.HashSet;
 
 public class EntityResolutionParser {
-    HashSet<String> parse(String file_path, final String author) {
+    void parse(String file_path) {
         SAXParserFactory factory = SAXParserFactory.newInstance();
         try {
             SAXParser saxParser = factory.newSAXParser();
-            final HashSet<String> result = new HashSet<String>();
             DefaultHandler handler = new DefaultHandler() {
                 boolean publication = false;
                 boolean author_present = false;
-                boolean author_match = false;
                 String data_acc = "";
-                ArrayList<String> alias=new ArrayList<String>();
+                String k="";
+                String alias = "";
+
                 public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
                     if (qName.equalsIgnoreCase("www")) {
-                        //System.out.println(qName + "Started");
-                        publication = true;
 
-                        //                    System.out.println(qName+" started:");
-                        //                    if(attributes.getLength()>0 && (k=attributes.getValue("key"))!=null){
-                        //                        System.out.println("key = "+k);
-                        //                    }
+                            if(attributes.getLength()>0 && (k=attributes.getValue("key"))!=null){
+                                if(k.substring(0,9).equalsIgnoreCase("homepages")){
+                                   // System.out.println(attributes.getValue("key"));
+                                    publication=true;
+                                }
+                            }
                     }
-                    if (qName.equalsIgnoreCase("author")) {
+                    if (qName.equalsIgnoreCase("author")|qName.equalsIgnoreCase("editor")) {
                         author_present = true;
                     }
                 }
@@ -43,40 +47,33 @@ public class EntityResolutionParser {
                 }
 
                 public void endElement(String uri, String localName, String qName) throws SAXException {
+                    if (publication) {
                     if (qName.equalsIgnoreCase("www")){
                         publication = false;
-                        if(!author_match){
-                            alias.clear();
+                        try {
+                            Writer writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("wwww.csv", true), "utf-8"));
+                            if(alias!=""){writer.write(alias.substring(0,alias.length()-1));
+                            alias="";
+                            writer.write(System.lineSeparator());}
+                            writer.close();
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
-                        if (author_match) {
-                            for(String i:alias){
-                                result.add(i);
-                            }
-                            author_match=false;
-                        }
-
                     }
-                    if (publication) {
-                        if (qName.equalsIgnoreCase("author")) {
+
+                        if (qName.equalsIgnoreCase("author")|qName.equalsIgnoreCase("editor")) {
                             author_present = false;
-                            alias.add(data_acc);
-                            //System.out.println("Author: "+data_acc);
-                            if (author.equalsIgnoreCase(data_acc)) {
-//                                int c=5555;
-//                                while(c--!=0){System.out.println("Mil gya!!");}
-                                author_match = true;
-                            }
+                            alias+=data_acc+",";
                         }
-                        data_acc = "";
-                    }//Make object here;
+                    }
+
+                    data_acc = "";
                 }
 
             };
             saxParser.parse(file_path, handler);
-            return result;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
     }
 }

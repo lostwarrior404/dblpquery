@@ -20,17 +20,14 @@ public class Main {
 //        for(Publication pu: res){
 //            System.out.println(pu);
 //        }
-//        EntityResolutionParser e = new EntityResolutionParser();
-//        HashSet<String> res = e.parse("dblp.xml",name);
-//        for(String pr:res){
-//            System.out.println(pr);
-//        }
+        EntityResolutionParser e = new EntityResolutionParser();
+        e.parse("dblp.xml");
 
 //      Query1 hey=new Query1();
-        Query2 mainhoonpro=new Query2();
-        ArrayList<String> a=mainhoonpro.parse("dblp.xml",1000);
-        for(String i:a){
-            System.out.println(i);
-        }
+//        Query2 mainhoonpro=new Query2();
+//        ArrayList<String> a=mainhoonpro.parse("dblp.xml",1000);
+//        for(String i:a){
+//            System.out.println(i);
+//        }
     }
 }
