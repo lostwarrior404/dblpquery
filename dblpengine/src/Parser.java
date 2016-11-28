@@ -45,7 +45,7 @@ public class Parser{
                         //                        System.out.println("key = "+k);
                         //                    }
                     }
-                    if(qName.equalsIgnoreCase("author")){
+                    if(qName.equalsIgnoreCase("author") | qName.equalsIgnoreCase("editor")){
                         author_present = true;
                     }
                     if(qName.equalsIgnoreCase("title")){
@@ -108,7 +108,7 @@ public class Parser{
                         paper = null;
                     }
                     if(publication){
-                        if (qName.equalsIgnoreCase("author")) {
+                        if (qName.equalsIgnoreCase("author") | qName.equalsIgnoreCase("editor")) {
                             author_present = false;
                             paper.setAuthor(data_acc);
                             for(String i:author){

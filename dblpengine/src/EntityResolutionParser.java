@@ -28,7 +28,6 @@ public class EntityResolutionParser {
 
                 public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
                     if (qName.equalsIgnoreCase("www")) {
-
                             if(attributes.getLength()>0 && (k=attributes.getValue("key"))!=null){
                                 if(k.substring(0,9).equalsIgnoreCase("homepages")){
                                    // System.out.println(attributes.getValue("key"));

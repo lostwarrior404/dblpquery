@@ -5,7 +5,7 @@ import java.util.ArrayList;
  */
 public class Prediction {
 
-    public static int predict(ArrayList<Integer> cummulatives){
+    public static int predict(int[] cummulatives,int year){
 
 
         double sumx, sumxsq, sumy, sumxy,a,b,denom;
@@ -14,7 +14,7 @@ public class Prediction {
         sumy = 0;
         sumxy = 0;
         int count=0;
-        int n=cummulatives.size();
+        int n=year;
         for(Integer i : cummulatives)
         {
             sumx += count+1;
@@ -26,7 +26,7 @@ public class Prediction {
         denom = n*sumxsq-(sumx*sumx);
         a = ((sumy*sumxsq)-(sumx*sumxy))/denom;
         b = (n*sumxy-sumx*sumy)/denom;
-        return (int)((cummulatives.size()+1)*a+b-cummulatives.get(cummulatives.size()-1));//or ula see
+        return (int)((n+1)*a+b-cummulatives[n+1]);//or ula see
     }
 
 }
