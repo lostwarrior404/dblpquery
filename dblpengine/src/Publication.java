@@ -14,7 +14,9 @@ public class Publication implements Comparable<Publication>{
     private String journal="";
     private String booktitle="";
     private double similarity=0.0;
-
+    public ArrayList<String> getAuthor(){
+        return author;
+    }
     public void setSimilarity(double similarity) {
         this.similarity = similarity;
     }
