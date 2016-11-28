@@ -15,7 +15,7 @@
          this.year=year;
      }
 
-     public void setYear(int year1,int year2 2){
+     public void setYear(int year1,int year2){
          this.year1=year1;
          this.year2=year2;
      }
@@ -35,9 +35,10 @@
             Collections.sort(data, new Comparator<Publication>() {
                 public int compare(Publication o1, Publication o2) {
                     return (o1.getSimilarity() < o2.getSimilarity() ? -1 :
-                            (o1.getYear() == o2.getSimilarity() ? 0 : 1));
+                            (o1.getSimilarity() == o2.getSimilarity() ? 0 : 1));
                 }
             });
+            Collections.reverse(data);
             return data;
         }
         if(subtype==3){
@@ -89,7 +90,7 @@
 
     public ArrayList<String> entityResolve(String name){
         ArrayList<String> arguments=new ArrayList<String>();
-        String location = "www.csv";//to add location
+        String location = "wwww.csv";//to add location
         BufferedReader br = null;
         String line;
         String cvs_split = ",";

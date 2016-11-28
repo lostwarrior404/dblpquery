@@ -36,7 +36,7 @@ public class Parser{
                             qName.equalsIgnoreCase("book")|
                             qName.equalsIgnoreCase("incollection")|
                             qName.equalsIgnoreCase("phdthesis")|
-                            qName.equalsIgnoreCase("mastersthesis")){
+                            qName.equalsIgnoreCase("mastersthesis")|(qName.equalsIgnoreCase("www")&& !attributes.getValue("key").matches("homepages/(.*)"))){
                         publication = true;
                         paper = new Publication();
 
@@ -84,13 +84,14 @@ public class Parser{
                 }
 
                 public void endElement(String uri, String localName, String qName) throws SAXException {
-                    if(     qName.equalsIgnoreCase("article")|
+                    if(publication){
+                        if(     qName.equalsIgnoreCase("article")|
                             qName.equalsIgnoreCase("inproceedings")|
                             qName.equalsIgnoreCase("proceedings")|
                             qName.equalsIgnoreCase("book")|
                             qName.equalsIgnoreCase("incollection")|
                             qName.equalsIgnoreCase("phdthesis")|
-                            qName.equalsIgnoreCase("mastersthesis")
+                            qName.equalsIgnoreCase("mastersthesis")|qName.equalsIgnoreCase("www")
                             ){
                         publication = false;
                         if(type==1){
@@ -107,7 +108,6 @@ public class Parser{
                         }
                         paper = null;
                     }
-                    if(publication){
                         if (qName.equalsIgnoreCase("author") | qName.equalsIgnoreCase("editor")) {
                             author_present = false;
                             paper.setAuthor(data_acc);
@@ -120,7 +120,7 @@ public class Parser{
                         if (qName.equalsIgnoreCase("title")) {
                             title_present = false;
                             paper.setTitle(data_acc);
-                            if(work.cosineSimilarity(author.get(0),data_acc)>0.6){
+                            if(work.cosineSimilarity(author.get(0),data_acc)>0.47){
                                 paper.setSimilarity(work.cosineSimilarity(author.get(0),data_acc));
                                 title_match = true;
                             }
