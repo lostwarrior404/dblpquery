@@ -32,7 +32,7 @@ public class EntityResolutionParser {
                         //System.out.println(qName);
                             if(attributes.getLength()>0 && (k=attributes.getValue("key"))!=null){
                                 if(k.substring(0,9).equalsIgnoreCase("homepages")){
-                                   // System.out.println(attributes.getValue("key"));
+                                   //  System.out.println(attributes.getValue("key"));
                                     publication=true;
                                 }
                             }
