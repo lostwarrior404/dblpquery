@@ -62,7 +62,6 @@ public class Query1 {
         Parser p=new Parser();
         ArrayList<String> author;
         //an arraylist named author if search by author else an arraylist with title at index 0
-
         data = p.parse("dblp.xml",author,type);//author is an array
         this.setQtype(type);
         this.setName(name);//can be name or title
