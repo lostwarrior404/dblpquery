@@ -24,8 +24,11 @@ public class Query2 {
                 ArrayList<String> argm = new ArrayList<String>(Arrays.asList(line.split(cvs_split)));
                 int sum=0;
                 for(String s:argm){
+//                    if(s.equalsIgnoreCase("Philip S. Yu")){
+//                        System.out.print(hash.get(s));
+//                    }
                     if(hash.containsKey(s)){
-                        sum+=hash.remove(s);
+                        sum+=hash.get(s);
                     }
                 }
                 if(sum>=k){

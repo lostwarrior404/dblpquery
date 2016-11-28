@@ -38,7 +38,7 @@ public class Kparser {
                         //                        System.out.println("key = "+k);
                         //                    }
                     }
-                    if(qName.equalsIgnoreCase("author")){
+                    if(qName.equalsIgnoreCase("author")|qName.equalsIgnoreCase("editor")){
                         author_present = true;
                     }
                 }

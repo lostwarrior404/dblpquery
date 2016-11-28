@@ -111,21 +111,26 @@ public class Parser{
                         if (qName.equalsIgnoreCase("author") | qName.equalsIgnoreCase("editor")) {
                             author_present = false;
                             paper.setAuthor(data_acc);
-                            for(String i:author){
-                                if(i.equalsIgnoreCase(data_acc)){
-                                    author_match=true;
+                            if(type==1){
+                                for(String i:author){
+                                    if(i.equalsIgnoreCase(data_acc)){
+                                        author_match=true;
+                                    }
                                 }
                             }
                         }
                         if (qName.equalsIgnoreCase("title")) {
                             title_present = false;
                             paper.setTitle(data_acc);
-                            if(work.cosineSimilarity(author.get(0),data_acc)>0.47){
-                                paper.setSimilarity(work.cosineSimilarity(author.get(0),data_acc));
-                                title_match = true;
+                            if(type==2){
+                                if(work.cosineSimilarity(author.get(0),data_acc)>0.47){
+                                    paper.setSimilarity(work.cosineSimilarity(author.get(0),data_acc));
+                                    title_match = true;
+                                }
                             }
-                            //System.out.println("title: "+data_acc);
                         }
+                            //System.out.println("title: "+data_acc);
+
                         if (qName.equalsIgnoreCase("pages")) {
                             pages_present = false;
                             paper.setPages(data_acc);

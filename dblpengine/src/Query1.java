@@ -127,6 +127,9 @@
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if(arguments.size()==0){
+            arguments.add(name);
+        }
         return arguments;
     }
 }
