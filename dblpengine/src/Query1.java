@@ -14,24 +14,19 @@ public class Query1 {
                 return o1.compareTo(o2);
             }
         });
+        Collections.reverse(data);
         if(subtype==1){
            return data;
         }
         if(subtype==2){
-            //substring or word i need first author name to be the searched one
-            ArrayList<Publication> temp=new ArrayList<Publication>();
-            if(qtype==1){
-                for(int i=0;i<data.size();i++){
-
-                    if(work.cosineSimilarity(data.get(i).getAuthor().get(0),name)>0.6){
-                        temp.add(data.get(i));
-                    }
+            //only for type 2 query
+            Collections.sort(data, new Comparator<Publication>() {
+                public int compare(Publication o1, Publication o2) {
+                    return (o1.getSimilarity() < o2.getSimilarity() ? -1 :
+                            (o1.getYear() == o2.getSimilarity() ? 0 : 1));
                 }
-                //now sort by relevance and return it
-            }
-
-
-
+            });
+            return data;
         }
         if(subtype==3){
             ArrayList<Publication> temp=new ArrayList<Publication>();
@@ -65,9 +60,9 @@ public class Query1 {
     }
     public ArrayList<Publication> parse(String author,int type){
         Parser p=new Parser();
-        data = p.parse("dblp.xml",author,type);
+        data = p.parse("dblp.xml",author,type);//author is an array
         this.setQtype(type);
-        this.setName(author);
+        this.setName(author);//can be name or title
         return data;
     }
 }
