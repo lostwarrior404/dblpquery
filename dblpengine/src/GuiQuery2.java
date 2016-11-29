@@ -8,6 +8,12 @@ import java.util.ArrayList;
 /**
  * Created by Saksham on 11/29/2016.
  */
+
+/*! \class GUIQuery2
+ * \brief Creates the GUI for the query2
+ *
+ * This class creates the gui corresponding to Query2 and displays the result in a tabular form
+ */
 public class GuiQuery2 {
     JPanel base=new JPanel(new FlowLayout(FlowLayout.CENTER));
     JButton reset=new JButton("Reset");

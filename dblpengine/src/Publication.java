@@ -3,6 +3,13 @@ import java.util.ArrayList;
 /**
  * Created by Saksham on 11/26/2016.
  */
+ /*! \class Publication
+  * \brief Base building entity of project.
+  *
+  * This class defines the attributes and methods
+  * of publication class and models Publications present in
+  * dblp.xml and is used for parsing.
+  */
 public class Publication implements Comparable<Publication>{
 
     private ArrayList<String> author=new ArrayList<String>();

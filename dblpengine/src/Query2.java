@@ -5,8 +5,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-
+/*! \class Query2
+  * \brief Handles the Query2 requests.
+  */
 public class Query2 {
+    //! Parser for query2
+     /*!
+     * The parser function calls Kparser on dblp.xml for returning sorted publication
+     * \param k to suggest no of publications
+     * \return An array list of authors
+     *
+     */
    public ArrayList<String> parse(int k){
         HashMap<String,Integer> hash= new Kparser().parse("dblp.xml");
         ArrayList<String> result = new ArrayList<String>();

@@ -5,7 +5,13 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.util.ArrayList;
-
+/*! \class Parser
+ * \brief Does the actual file handling for query1a and query1b.
+ *
+ * This class parses the file and uses word matching
+ * to match author names and title tags depending upon query type
+ * It uses a SAX Parser which uses multiple callback functions.
+ */
 public class Parser{
     ArrayList<String> www;
     ArrayList<Publication> parse(String file_path, final ArrayList<String> author,final int type){

@@ -4,7 +4,12 @@
  import java.io.FileReader;
  import java.io.IOException;
  import java.util.*;
-
+ /*! \class Query1
+  * \brief Handles the Query1 requests.
+  *
+  * This class contains multiple options for query one
+  * like sorting,between two years,etc.
+  */
  public class Query1 {
     ArrayList<Publication> data;
     int year,year1,year2;
@@ -19,7 +24,13 @@
          this.year1=year1;
          this.year2=year2;
      }
-
+     //! Sorting for query1
+     /*!
+     * The sortit function uses parsed dblp.xml for returning sorted publication
+     * \param subtype to suggest subtype
+     * \return An array list of Publications
+     *
+     */
     public ArrayList<Publication> sortit(int subtype){
         Collections.sort(data, new Comparator<Publication>() {
             public int compare(Publication o1, Publication o2) {
@@ -68,9 +79,16 @@
     public void setName(String a){
         name=a;
     }
-    public void createGui(){
-        System.out.println("q1");
-    }
+    //! Parser for query1
+    /*!
+     * The parse function parses dblp.xml searching for author name
+     * or title \a name, depending upon \a type
+     * It calls the Parser class to file io
+     * and also calls entity resolver
+     * \param name author name or title
+     * \param type to suggest title or author
+     * \return An array list of Publications
+     */
     public ArrayList<Publication> parse(String name,int type){
         Parser p=new Parser();
         ArrayList<String> author;

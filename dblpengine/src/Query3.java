@@ -6,9 +6,24 @@ import java.util.Collections;
 import java.util.HashMap;
 
 import static javax.swing.UIManager.get;
-
+/*! \class Query3
+ * \brief Handles the Query3 requests.
+ *
+ * This class handles query 3 requests
+ * by using prediction mechanisms and query1 to
+ * return predictions.
+ */
 public class Query3 {
     ArrayList<Publication> publ;
+    //! Linear Regression for query 3
+    /*!
+     * The predict function uses parsed dblp.xml searching for author name
+     * and predicts its next year's publication using linear regression.It basically
+     * generates an HashSet for each author x and y
+     * \param name author name
+     * \param year to suggest year
+     * \return int Prediction for next year
+     */
     public int predict(String author,int year){
         Query1 q1=new Query1();
         q1.parse(author,1);
@@ -48,6 +63,15 @@ public class Query3 {
         int ans=(int)(a+b*(n+1));
         return ans;
     }
+    //! KNN Regression for query 3
+    /*!
+     * The predict function uses parsed dblp.xml searching for author name
+     * and predicts its next year's publication using KNN regression
+     * The value of K is set to 5 but can be changed using additional parameter
+     * \param name author name
+     * \param year to suggest year
+     * \return int Prediction for next year
+     */
     public int predict1(String author,int year){
 //        Query1 q1=new Query1();
 //        q1.parse(author,1);

@@ -7,6 +7,12 @@ import java.awt.Color;
 /**
  * Created by Saksham on 11/27/2016.
  */
+/*! \class GUI
+ * \brief Creates the GUI for the program
+ *
+ * This class creates the initial gui basically it creates the main frames
+ * and adds the basic outer panels and a combobox visible on the initial gui screen
+ */
 public class Gui {
 
     JFrame mainframe=new JFrame();

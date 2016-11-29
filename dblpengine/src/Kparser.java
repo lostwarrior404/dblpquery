@@ -10,6 +10,15 @@ import java.util.HashMap;
 /**
  * Created by Tushar Kataria on 28-Nov-16.
  */
+/*! \class KParser
+ * \brief Does the actual file handling for query2.
+ *
+ * This class parses the file and uses word matching
+ * to match author and editor names and make a hashmap for each author
+ * which is used by entityresolver in query2 to get authors
+ * with more than k publications
+ * It uses a SAX Parser which uses multiple callback functions.
+ */
 public class Kparser {
     HashMap<String,Integer> parse(String file_path){
         SAXParserFactory factory = SAXParserFactory.newInstance();

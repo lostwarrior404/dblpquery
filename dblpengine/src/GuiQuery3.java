@@ -6,6 +6,13 @@ import java.awt.event.ActionListener;
 /**
  * Created by Saksham on 11/29/2016.
  */
+
+/*! \class GUIQuery3
+ * \brief Creates the GUI for the query3
+ *
+ * This class creates the gui corresponding to Query3 and displays the results of Query3 in a tabular form
+ * with 3 columns having the author name , result from KNN Algorithm and result from Linear Regression
+ */
 public class GuiQuery3 {
     JTextField year=new JTextField(4);
     JTextField person1=new JTextField(15);

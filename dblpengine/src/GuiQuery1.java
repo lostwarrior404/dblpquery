@@ -8,6 +8,12 @@ import java.util.ArrayList;
 /**
  * Created by Saksham on 11/28/2016.
  */
+/*! \class GUIQuery1
+ * \brief Creates the GUI for the query1
+ *
+ * This class creates the gui corresponding to Query1 with a selection b/w searching by which attribute
+ * and also sorting in different ways and displays the result in a tabular form
+ */
 public class GuiQuery1 {
     String[][] all;
     JButton reset=new JButton("Reset");
