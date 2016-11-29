@@ -28,7 +28,7 @@ public class Query2 {
 //                        System.out.print(hash.get(s));
 //                    }
                     if(hash.containsKey(s)){
-                        sum+=hash.get(s);
+                        sum+=hash.remove(s);
                     }
                 }
                 if(sum>=k){
