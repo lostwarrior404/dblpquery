@@ -16,7 +16,9 @@ public class Query3 {
         ArrayList<Publication> publ = q1.sortit(4);
         Collections.reverse(publ);
         ArrayList<Publication> temp=new ArrayList<Publication>();
-
+        if(publ.size()==0){
+            return 0;
+        }
         int min_year = publ.get(0).getYear(),max_year = publ.get(publ.size()-1).getYear();
         HashMap<Integer,Integer> xy = new HashMap<Integer, Integer>();
 

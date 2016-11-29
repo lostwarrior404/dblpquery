@@ -77,7 +77,6 @@ public class GuiQuery3 {
     public void runQuery(){
         Query3 q3=new Query3();
         int y=Integer.parseInt(year.getText());
-
         String data[][] = {{person1.getText(),Integer.toString(q3.predict(person1.getText(),y))},
                 {person2.getText(),Integer.toString(q3.predict(person2.getText(),y))},
                 {person3.getText(),Integer.toString(q3.predict(person3.getText(),y))},

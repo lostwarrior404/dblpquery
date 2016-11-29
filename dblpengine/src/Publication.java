@@ -73,16 +73,19 @@ public class Publication implements Comparable<Publication>{
     public String [] toArray(){
         //sno//authors//title//pages//year // volume // journal booktitle url
         String [] a = new String[7];
-        if(author.size()==0 | author.get(0)==null){
+        if(author.size()==0){a[0]="";}
+        else if(author.get(0)==null){
             a[0]="";
         }
         else{
-            String temp="";
-            for(String aa:author){
-                temp+=aa+",";
+            String temp = "";
+            for (String aa : author) {
+                temp += aa + ",";
             }
-            temp=temp.substring(0,temp.length()-1);
+            temp = temp.substring(0, temp.length() - 1);
             a[0]=temp;
+        }
+
             a[1]=title;
             a[2]=pages;
             a[3]=year;
@@ -94,7 +97,7 @@ public class Publication implements Comparable<Publication>{
                 a[5]=booktitle;
             }
             a[6]=url;
-        }
+
         return a;
     }
 
