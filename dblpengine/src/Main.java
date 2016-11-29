@@ -48,7 +48,9 @@ public class Main {
 //        for(String i:a){
 //            System.out.println(i);
 //        }
-        Query3 run=new Query3();
-        System.out.println(run.predict("H. Vincent Poor",2015));
+//        Query3 run=new Query3();
+//        System.out.println(run.predict("H. Vincent Poor",2015));
+        Gui run=new Gui();
+        run.createGui();
     }
 }

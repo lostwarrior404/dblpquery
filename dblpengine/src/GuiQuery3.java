@@ -20,9 +20,10 @@ public class GuiQuery3 {
     JTable table;
     JPanel centre;
     public void query3gui(JPanel westbottom,JPanel centr){
-        centre.removeAll();
         westbottom.removeAll();
         this.centre=centr;
+        centre.removeAll();
+
         westbottom.setLayout(new BoxLayout(westbottom, BoxLayout.Y_AXIS));
         JPanel p1=new JPanel(new FlowLayout(FlowLayout.LEFT));
         p1.add(new JLabel("  Year "));
@@ -71,17 +72,19 @@ public class GuiQuery3 {
                 table.setValueAt("", i, j);
             }
     }
-
     public void runQuery(){
         Query3 q3=new Query3();
-        String data[][] = {{person1.getText(),Integer.toString(q3.predict(person1.getText(),year))},
-                {person2.getText(),Integer.toString(q3.predict(person2.getText(),year))},
-                {person3.getText(),Integer.toString(q3.predict(person3.getText(),year))},
-                {person4.getText(),Integer.toString(q3.predict(person4.getText(),year))},
-                {person4.getText(),Integer.toString(q3.predict(person5.getText(),year))}};
+        int y=Integer.parseInt(year.getText());
+
+        String data[][] = {{person1.getText(),Integer.toString(q3.predict(person1.getText(),y))},
+                {person2.getText(),Integer.toString(q3.predict(person2.getText(),y))},
+                {person3.getText(),Integer.toString(q3.predict(person3.getText(),y))},
+                {person4.getText(),Integer.toString(q3.predict(person4.getText(),y))},
+                {person5.getText(),Integer.toString(q3.predict(person5.getText(),y))}};
         String column[] = {"Author Name","Prediction for next Year"};
         table = new JTable(data, column);
-        centre.add(table);
+        centre.setLayout(new BorderLayout());
+        centre.add( new JScrollPane( table ), BorderLayout.CENTER );
     }
     class reset implements ActionListener{
         public void actionPerformed(ActionEvent e){
