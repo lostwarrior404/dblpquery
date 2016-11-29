@@ -18,6 +18,7 @@ public class GuiQuery3 {
     JButton reset=new JButton("Reset");
     JButton search=new JButton("Submit");
     JTable table;
+    JLabel hey;
     JPanel centre;
     public void query3gui(JPanel westbottom,JPanel centr){
         westbottom.removeAll();
@@ -62,6 +63,7 @@ public class GuiQuery3 {
     //seteditable
     public void reset(){
         year.setText("");
+        hey.setText("");
         person1.setText("");
         person2.setText("");
         person3.setText("");

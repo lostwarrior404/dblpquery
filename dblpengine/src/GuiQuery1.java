@@ -19,6 +19,7 @@ public class GuiQuery1 {
     JLabel nametitle=new JLabel("Name/Title Tags");
     JTextField nametitleinput=new JTextField(10);//increase field length
     JTextField sinceyearinput=new JTextField(4);
+    JLabel hey;
     JTextField year1input=new JTextField(4);
     JTextField year2input=new JTextField(4);
     JPanel p5=new JPanel(new FlowLayout(FlowLayout.CENTER));
@@ -40,6 +41,7 @@ public class GuiQuery1 {
     }
     public void rese(){
         nametitleinput.setText("");
+        hey.setText("");
         year1input.setText("");
         year2input.setText("");
         sinceyearinput.setText("");
@@ -71,7 +73,7 @@ public class GuiQuery1 {
         p3.add(new JLabel("Range of Years"));
         year1input.setEditable(true);
         year2input.setEditable(true);
-        p3.add(year2input);
+        p3.add(year1input);
         p3.add(new JLabel("-"));
         p3.add(year2input);
         westbottom.add(p3);
@@ -92,7 +94,7 @@ public class GuiQuery1 {
         p4.add(d);
         westbottom.add(p4);
         search.addActionListener(new submit());
-        search.addActionListener(new reset());
+        reset.addActionListener(new reset());
         p5.add(search);
         p5.add(reset);
         westbottom.add(p5);
@@ -149,7 +151,7 @@ public class GuiQuery1 {
             q1.setYear(Integer.parseInt(year1input.getText()),Integer.parseInt(year2input.getText()));
             data=q1.sortit(4);
         }
-        JLabel hey=new JLabel("No of results:"+Integer.toString(data.size())+"         ");
+        hey=new JLabel("No of results:"+Integer.toString(data.size())+"         ");
         lol=new JPanel();
         lol.add(hey);
         next.addActionListener(new nex());

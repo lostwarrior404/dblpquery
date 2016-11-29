@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args){
         //Parser p=new Parser();
         Scanner in =new Scanner(System.in);
-        String name=in.nextLine();
+        //String name=in.nextLine();
         System.setProperty("jdk.xml.entityExpansionLimit", "0");
 //        Query1 q = new Query1();
 //        ArrayList<Publication> res=q.parse(name,1);

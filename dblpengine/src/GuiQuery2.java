@@ -13,6 +13,7 @@ public class GuiQuery2 {
     JButton reset=new JButton("Reset");
     JButton search=new JButton("Submit");
     JPanel centre;
+    JLabel hey;
     JTextField inputk=new JTextField(10);
     JPanel p5=new JPanel(new FlowLayout(FlowLayout.CENTER));
     JTable table;
@@ -46,6 +47,7 @@ public class GuiQuery2 {
     }
     public void reset(){
         inputk.setText("");
+        hey.setText("");
         for (int i = 0; i < table.getRowCount(); i++)
             for(int j = 0; j < table.getColumnCount(); j++) {
                 table.setValueAt("", i, j);
@@ -57,7 +59,7 @@ public class GuiQuery2 {
         System.out.println(k+" "+inputk.getText());
         auth=q2.parse(k);
         System.out.println(auth);
-        JLabel hey=new JLabel("No of results:"+Integer.toString(auth.size())+"         ");
+        hey=new JLabel("No of results:"+Integer.toString(auth.size())+"         ");
         lol=new JPanel();
         lol.add(hey);
         lol.add(next);
