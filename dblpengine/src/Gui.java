@@ -8,6 +8,7 @@ import java.awt.Color;
  * Created by Saksham on 11/27/2016.
  */
 public class Gui {
+
     JFrame mainframe=new JFrame();
     JPanel top=new JPanel();
     JPanel centrebig=new JPanel();
