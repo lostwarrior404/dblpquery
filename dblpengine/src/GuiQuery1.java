@@ -133,6 +133,7 @@ public class GuiQuery1 {
         }
     }
     public void sub(){
+        position=0;
         flag=false;
         Query1 q1=new Query1();
         System.out.println(nametitleinput.getText()+"  "+qtype);
@@ -156,6 +157,8 @@ public class GuiQuery1 {
             System.out.println(4);
             data=q1.sortit(4);
         }
+//        System.out.println("Lo data aa gya:"+data);
+        centre.removeAll();
         hey=new JLabel("No of results:"+Integer.toString(data.size())+"         ");
         lol=new JPanel();
         lol.add(hey);
