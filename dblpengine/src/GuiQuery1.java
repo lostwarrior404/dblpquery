@@ -134,6 +134,7 @@ public class GuiQuery1 {
             }
         }
     }
+
     public JFrame popup(){
         JFrame popup=new JFrame();
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
@@ -143,8 +144,11 @@ public class GuiQuery1 {
         l.add( new JLabel("Please Wait.Your file is being read."));
         popup.add(l,BorderLayout.CENTER);
         return popup;
-
     }
+    public static boolean isNumeric(String s) {
+        return s.matches("[-+]?\\d*\\.?\\d+");
+    }
+
     public void sub(){
         position=0;
         flag=false;
@@ -165,10 +169,16 @@ public class GuiQuery1 {
             System.out.println(1);
             data=q1.sortit(1);}
         else if(sincegivenyear.isSelected()){
+            if(!GuiQuery1.isNumeric(sinceyearinput.getText())){
+                return;
+            }
             q1.setYear(Integer.parseInt(sinceyearinput.getText()));
             System.out.println(3);
             data=q1.sortit(3);}
         else if(bwtwoyears.isSelected()){
+            if(!GuiQuery1.isNumeric(year2input.getText()) | !GuiQuery1.isNumeric(year1input.getText())){
+                return;
+            }
             q1.setYear(Integer.parseInt(year1input.getText()),Integer.parseInt(year2input.getText()));
             System.out.println(4);
             data=q1.sortit(4);
@@ -232,16 +242,10 @@ public class GuiQuery1 {
             centre.setVisible(true);
         }
     }
-    public static boolean isNumeric(String s) {
-        return s.matches("[-+]?\\d*\\.?\\d+");
-    }
     class reset implements ActionListener{
         public void actionPerformed(ActionEvent e){GuiQuery1.this.rese();}}
     class submit implements ActionListener{
-        public void actionPerformed(ActionEvent e){
-            if(GuiQuery1.isNumeric())
-            GuiQuery1.this.sub();
-        }}
+        public void actionPerformed(ActionEvent e){GuiQuery1.this.sub();}}
     class nex implements ActionListener{
         public void actionPerformed(ActionEvent e){GuiQuery1.this.donext();}}
 }
