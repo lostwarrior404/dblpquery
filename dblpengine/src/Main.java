@@ -8,11 +8,19 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args){
         //Parser p=new Parser();
-//        Scanner in =new Scanner(System.in);
-//        String name=in.nextLine();
+        Scanner in =new Scanner(System.in);
+        String name=in.nextLine();
         System.setProperty("jdk.xml.entityExpansionLimit", "0");
-//        Query1 q = new Query1();
-//        ArrayList<Publication> res=q.parse(name,1);
+        Query1 q = new Query1();
+        ArrayList<Publication> res=q.parse(name,1);
+        String [][]a=Dataconverter.convert(res);
+        for (String []s:
+             a) {
+            for (String b:s){
+                System.out.print(b+",");
+            }
+            System.out.print("\n");
+        }
 //        System.out.println("Query 2 a 0");
 //        for(Publication pu: res){
 //            System.out.println(pu);
@@ -50,7 +58,7 @@ public class Main {
 //        }
 //        Query3 run=new Query3();
 //        System.out.println(run.predict("H. Vincent Poor",2015));
-        Gui run=new Gui();
-        run.createGui();
+//        Gui run=new Gui();
+//        run.createGui();
     }
 }

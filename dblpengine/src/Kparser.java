@@ -77,6 +77,7 @@ public class Kparser {
                 }
             };
             saxParser.parse(file_path, handler);
+            System.out.println("Parsing Over!!");
             return maps;
         }  catch (Exception e) {
             e.printStackTrace();

@@ -70,6 +70,33 @@ public class Publication implements Comparable<Publication>{
         }
         return "Author "+author.get(0)+" Year "+year+" Title "+title+" Pages "+pages+" Url "+url+" Volume "+volume+"Similarity"+similarity;
     }
+    public String [] toArray(){
+        //sno//authors//title//pages//year // volume // journal booktitle url
+        String [] a = new String[7];
+        if(author.size()==0 | author.get(0)==null){
+            a[0]="";
+        }
+        else{
+            String temp="";
+            for(String aa:author){
+                temp+=aa+",";
+            }
+            temp=temp.substring(0,temp.length()-1);
+            a[0]=temp;
+            a[1]=title;
+            a[2]=pages;
+            a[3]=year;
+            a[4]=volume;
+            if(booktitle==""){
+                a[5]=journal;
+            }
+            if(journal==""){
+                a[5]=booktitle;
+            }
+            a[6]=url;
+        }
+        return a;
+    }
 
     public int compareTo(Publication o) {
         return (this.getYear() < o.getYear() ? -1 :
