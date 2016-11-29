@@ -102,13 +102,14 @@ public class GuiQuery2 {
             DefaultTableModel model = new DefaultTableModel();
             model.addColumn("Author Name",dataArray);
             centre.removeAll();
-            centre.revalidate();
-            centre.repaint();
             centre.add(lol);
+            centre.add(Box.createRigidArea(new Dimension(122,123)));
             table = new JTable(model);
             centre.add( new JScrollPane( table ), BorderLayout.CENTER );
+            model.fireTableDataChanged();
             centre.revalidate();
             centre.repaint();
+            centre.setVisible(true);
         }
     }
     class reset implements ActionListener {
