@@ -126,6 +126,5 @@ public class GuiQuery2 {
     class next implements ActionListener{
         public void actionPerformed(ActionEvent e){
             GuiQuery2.this.donext();
-        }
-    }
+        }}
 }
