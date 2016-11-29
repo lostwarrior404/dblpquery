@@ -135,20 +135,25 @@ public class GuiQuery1 {
     public void sub(){
         flag=false;
         Query1 q1=new Query1();
-        q1.parse(nametitle.getText(),qtype);
+        System.out.println(nametitleinput.getText()+"  "+qtype);
+        q1.parse(nametitleinput.getText(),qtype);
         data=new ArrayList<Publication>();
         if(sortbydate.isSelected()){
+            System.out.println(1);
             data=q1.sortit(1);
         }
         else if(sortbyrelevance.isSelected()&& qtype!=1){
+            System.out.println(2);
             data=q1.sortit(2);
         }
         else if(sincegivenyear.isSelected()){
             q1.setYear(Integer.parseInt(sinceyearinput.getText()));
+            System.out.println(3);
             data=q1.sortit(3);
         }
         else if(bwtwoyears.isSelected()){
             q1.setYear(Integer.parseInt(year1input.getText()),Integer.parseInt(year2input.getText()));
+            System.out.println(4);
             data=q1.sortit(4);
         }
         hey=new JLabel("No of results:"+Integer.toString(data.size())+"         ");
@@ -166,7 +171,10 @@ public class GuiQuery1 {
             position=20;
         }
         for(int i=0;i<temp;i++){
-            dataArray[i]=all[i];//check this
+            for(int j=0;j<8;j++){
+                dataArray[i][j]=all[i][j];
+            }
+            //check this
         }
         String[] column={"S no.","Authors","Title","Pages","Year","Volume","Journal/Booktitle","URL"};//check
         table = new JTable(dataArray,column);
@@ -176,7 +184,7 @@ public class GuiQuery1 {
     }
     public void donext(){
         if(flag){
-            String[] dataArray=new String[20];
+            String[][] dataArray=new String[20][8];
             int start=position;
             int temp;
             if(position+19>=data.size()-1){
@@ -191,16 +199,19 @@ public class GuiQuery1 {
             int y=0;
             for(int i=start;i<temp;i++){
                 //dataArray[y]=data.get(i);
+                for(int j=0;j<8;j++){
+                    dataArray[y][j]=all[i][j];
+                }
                 ++y;
             }
-            DefaultTableModel model1 = new DefaultTableModel();
-            model1.addColumn("Author Name",dataArray);
+            String[] column={"S no.","Authors","Title","Pages","Year","Volume","Journal/Booktitle","URL"};//check
+            table=new JTable(dataArray,column);
+
             centre.removeAll();
             centre.add(lol,BorderLayout.NORTH);
             //centre.add(Box.createRigidArea(new Dimension(122,123)));
-            table = new JTable(model1);
             centre.add( new JScrollPane( table ), BorderLayout.CENTER );
-            model1.fireTableDataChanged();
+            //table.getModel().fireTableDataChanged();
             centre.revalidate();
             centre.repaint();
             centre.setVisible(true);
