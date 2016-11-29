@@ -128,7 +128,4 @@ public class GuiQuery2 {
             GuiQuery2.this.donext();
         }
     }
-
-
-
 }
