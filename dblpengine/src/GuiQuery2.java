@@ -99,16 +99,17 @@ public class GuiQuery2 {
                 dataArray[y]=auth.get(i);
                 ++y;
             }
-            DefaultTableModel model = new DefaultTableModel();
-            model.addColumn("Author Name",dataArray);
+            DefaultTableModel model1 = new DefaultTableModel();
+            model1.addColumn("Author Name",dataArray);
             centre.removeAll();
-            centre.revalidate();
-            centre.repaint();
-            centre.add(lol);
-            table = new JTable(model);
+            centre.add(lol,BorderLayout.NORTH);
+            //centre.add(Box.createRigidArea(new Dimension(122,123)));
+            table = new JTable(model1);
             centre.add( new JScrollPane( table ), BorderLayout.CENTER );
+            model1.fireTableDataChanged();
             centre.revalidate();
             centre.repaint();
+            centre.setVisible(true);
         }
     }
     class reset implements ActionListener {
@@ -125,9 +126,5 @@ public class GuiQuery2 {
     class next implements ActionListener{
         public void actionPerformed(ActionEvent e){
             GuiQuery2.this.donext();
-        }
-    }
-
-
-
+        }}
 }
