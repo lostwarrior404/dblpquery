@@ -110,7 +110,6 @@ public class GuiQuery1 {
         comboBox.addItem("Author");
         comboBox.addItem("Title");
         comboBox.setEditable(false);
-        comboBox.addActionListener(new listype2());
         return comboBox;
     }
     public void setQtype(int a){
@@ -119,20 +118,16 @@ public class GuiQuery1 {
             sortbyrelevance.setEnabled(false);
         }
     }
-    class listype2 implements ActionListener{
-        public void actionPerformed(ActionEvent e){
-            JComboBox temp = (JComboBox) e.getSource();
-            Object selected = temp.getSelectedItem();
-            if(selected.toString().equals("Author")){
-                GuiQuery1.this.setQtype(1);
-            }
-            else if(selected.toString().equals("Title")){
-                //Query2 q2=new Query2();
-                GuiQuery1.this.setQtype(2);
-            }
-        }
-    }
     public void sub(){
+
+        position=0;
+        if(list2.toString().equals("Author")){
+            setQtype(1);
+        }
+        else if(list2.toString().equals("Title")){
+            //Query2 q2=new Query2();
+            setQtype(2);
+        }
         flag=false;
         Query1 q1=new Query1();
         System.out.println(nametitleinput.getText()+"  "+qtype);
@@ -146,6 +141,11 @@ public class GuiQuery1 {
             System.out.println(2);
             data=q1.sortit(2);
         }
+
+        else if(sortbyrelevance.isSelected()&& qtype==1){
+            System.out.println(1);
+            data=q1.sortit(1);
+        }
         else if(sincegivenyear.isSelected()){
             q1.setYear(Integer.parseInt(sinceyearinput.getText()));
             System.out.println(3);
@@ -156,6 +156,7 @@ public class GuiQuery1 {
             System.out.println(4);
             data=q1.sortit(4);
         }
+        centre.removeAll();
         hey=new JLabel("No of results:"+Integer.toString(data.size())+"         ");
         lol=new JPanel();
         lol.add(hey);
