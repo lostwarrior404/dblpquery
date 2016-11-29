@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class Query2 {
-    ArrayList<String> parse(int k){
+   public ArrayList<String> parse(int k){
         HashMap<String,Integer> hash= new Kparser().parse("dblp.xml");
         ArrayList<String> result = new ArrayList<String>();
         String location = "wwww.csv";//to add location
