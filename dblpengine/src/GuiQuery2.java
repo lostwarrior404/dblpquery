@@ -54,6 +54,9 @@ public class GuiQuery2 {
             }
     }
     public void runQuery(){
+        if(!GuiQuery1.isNumeric(inputk.getText())){
+            return;
+        }
         Query2 q2=new Query2();
         int k=Integer.parseInt(inputk.getText());
         System.out.println(k+" "+inputk.getText());
@@ -63,6 +66,7 @@ public class GuiQuery2 {
         lol=new JPanel();
         lol.add(hey);
         lol.add(next);
+        centre.removeAll();
         centre.setLayout(new BorderLayout());
         centre.add(lol,BorderLayout.NORTH);
         DefaultTableModel model = new DefaultTableModel();

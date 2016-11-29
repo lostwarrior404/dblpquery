@@ -19,6 +19,7 @@ public class GuiQuery1 {
     JLabel nametitle=new JLabel("Name/Title Tags");
     JTextField nametitleinput=new JTextField(10);//increase field length
     JTextField sinceyearinput=new JTextField(4);
+    JFrame yolo;
     JLabel hey;
     JTextField year1input=new JTextField(4);
     JTextField year2input=new JTextField(4);
@@ -135,29 +136,21 @@ public class GuiQuery1 {
         }
     }
 
-    public JFrame popup(){
-        JFrame popup=new JFrame();
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        popup.setSize(new Dimension(400,100));
-        popup.setLocation(dim.width/2-popup.getSize().width/2, dim.height/2-popup.getSize().height/2);
-        JPanel l=new JPanel(new FlowLayout());
-        l.add( new JLabel("Please Wait.Your file is being read."));
-        popup.add(l,BorderLayout.CENTER);
-        return popup;
-    }
     public static boolean isNumeric(String s) {
         return s.matches("[-+]?\\d*\\.?\\d+");
     }
-
     public void sub(){
+        if(bwtwoyears.isSelected() &&( !GuiQuery1.isNumeric(year2input.getText()) | !GuiQuery1.isNumeric(year1input.getText()) |year1input.getText().length()!=4|year1input.getText().length()!=4)){
+            return;
+        }
+        if(sincegivenyear.isSelected() && (!GuiQuery1.isNumeric(sinceyearinput.getText()) | sinceyearinput.getText().length()!=4)){
+            return;
+        }
         position=0;
         flag=false;
         Query1 q1=new Query1();
         System.out.println(nametitleinput.getText()+"  "+qtype);
-        //JFrame a=popup();
-        //a=popup();a.setVisible(true);
         q1.parse(nametitleinput.getText(),qtype);
-        //a.setVisible(false);
         data=new ArrayList<Publication>();
         if(sortbydate.isSelected()){
             System.out.println(1);
@@ -169,20 +162,13 @@ public class GuiQuery1 {
             System.out.println(1);
             data=q1.sortit(1);}
         else if(sincegivenyear.isSelected()){
-            if(!GuiQuery1.isNumeric(sinceyearinput.getText())){
-                return;
-            }
             q1.setYear(Integer.parseInt(sinceyearinput.getText()));
             System.out.println(3);
             data=q1.sortit(3);}
         else if(bwtwoyears.isSelected()){
-            if(!GuiQuery1.isNumeric(year2input.getText()) | !GuiQuery1.isNumeric(year1input.getText())){
-                return;
-            }
             q1.setYear(Integer.parseInt(year1input.getText()),Integer.parseInt(year2input.getText()));
             System.out.println(4);
-            data=q1.sortit(4);
-        }
+            data=q1.sortit(4);}
         centre.removeAll();
         hey=new JLabel("No of results:"+Integer.toString(data.size())+"         ");
         lol=new JPanel();
@@ -194,44 +180,32 @@ public class GuiQuery1 {
         all=Dataconverter.convert(data);
         String[][] dataArray=new String[20][8];
         int temp=data.size()>20?20:data.size();
-        if(data.size()>20){
-            flag=true;
-            position=20;
-        }
+        if(data.size()>20){flag=true;
+            position=20;}
         for(int i=0;i<temp;i++){
             for(int j=0;j<8;j++){
                 dataArray[i][j]=all[i][j];
-            }
-            //check this
-        }
+            }}
         String[] column={"S no.","Authors","Title","Pages","Year","Volume","Journal/Booktitle","URL"};//check
         table = new JTable(dataArray,column);
         centre.add( new JScrollPane( table ), BorderLayout.CENTER );
         centre.revalidate();
-        centre.repaint();
-    }
+        centre.repaint();}
     public void donext(){
         if(flag){
             String[][] dataArray=new String[20][8];
             int start=position;
             int temp;
-            if(position+19>=data.size()-1){
-                flag=false;
-                temp=data.size();
-            }
-            else{
-                flag=true;
+            if(position+19>=data.size()-1){flag=false;
+                temp=data.size();}
+            else{flag=true;
                 position=position+20;
-                temp=position;
-            }
+                temp=position;}
             int y=0;
             for(int i=start;i<temp;i++){
-                //dataArray[y]=data.get(i);
                 for(int j=0;j<8;j++){
-                    dataArray[y][j]=all[i][j];
-                }
-                ++y;
-            }
+                    dataArray[y][j]=all[i][j];}
+                ++y;}
             String[] column={"S no.","Authors","Title","Pages","Year","Volume","Journal/Booktitle","URL"};//check
             table=new JTable(dataArray,column);
             centre.removeAll();
@@ -239,13 +213,10 @@ public class GuiQuery1 {
             centre.add( new JScrollPane( table ), BorderLayout.CENTER );
             centre.revalidate();
             centre.repaint();
-            centre.setVisible(true);
-        }
-    }
+            centre.setVisible(true);}}
     class reset implements ActionListener{
         public void actionPerformed(ActionEvent e){GuiQuery1.this.rese();}}
     class submit implements ActionListener{
         public void actionPerformed(ActionEvent e){GuiQuery1.this.sub();}}
     class nex implements ActionListener{
-        public void actionPerformed(ActionEvent e){GuiQuery1.this.donext();}}
-}
+        public void actionPerformed(ActionEvent e){GuiQuery1.this.donext();}}}

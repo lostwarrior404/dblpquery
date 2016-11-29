@@ -75,17 +75,23 @@ public class GuiQuery3 {
             }
     }
     public void runQuery(){
+        if(!GuiQuery1.isNumeric(year.getText()) | year.getText().length()!=4){
+            return;
+        }
+        centre.removeAll();
         Query3 q3=new Query3();
         int y=Integer.parseInt(year.getText());
-        String data[][] = {{person1.getText(),Integer.toString(q3.predict(person1.getText(),y))},
-                {person2.getText(),Integer.toString(q3.predict(person2.getText(),y))},
-                {person3.getText(),Integer.toString(q3.predict(person3.getText(),y))},
-                {person4.getText(),Integer.toString(q3.predict(person4.getText(),y))},
-                {person5.getText(),Integer.toString(q3.predict(person5.getText(),y))}};
-        String column[] = {"Author Name","Prediction for next Year"};
+        String data[][] = {{person1.getText(),Integer.toString(q3.predict(person1.getText(),y)),Integer.toString(q3.predict1(person1.getText(),y))},
+                {person2.getText(),Integer.toString(q3.predict(person2.getText(),y)),Integer.toString(q3.predict1(person2.getText(),y))},
+                {person3.getText(),Integer.toString(q3.predict(person3.getText(),y)),Integer.toString(q3.predict1(person3.getText(),y))},
+                {person4.getText(),Integer.toString(q3.predict(person4.getText(),y)),Integer.toString(q3.predict1(person4.getText(),y))},
+                {person5.getText(),Integer.toString(q3.predict(person5.getText(),y)),Integer.toString(q3.predict1(person5.getText(),y))}};
+        String column[] = {"Author Name","Prediction Linear Regression","Prediction KNN"};
         table = new JTable(data, column);
         centre.setLayout(new BorderLayout());
         centre.add( new JScrollPane( table ), BorderLayout.CENTER );
+        centre.revalidate();
+        centre.revalidate();
     }
     class reset implements ActionListener{
         public void actionPerformed(ActionEvent e){
