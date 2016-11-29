@@ -106,7 +106,7 @@ public class GuiQuery2 {
             centre.repaint();
             centre.add(lol);
             table = new JTable(model);
-            centre.add(table);
+            centre.add( new JScrollPane( table ), BorderLayout.CENTER );
             centre.revalidate();
             centre.repaint();
         }
