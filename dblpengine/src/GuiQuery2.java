@@ -19,6 +19,7 @@ public class GuiQuery2 {
     Boolean flag=false;
     int position=0;
     JButton next=new JButton("Next");
+    JPanel lol;
     ArrayList<String> auth;
     public void query2gui(JPanel westbottom,JPanel centr ){
         position=0;
@@ -53,9 +54,11 @@ public class GuiQuery2 {
     public void runQuery(){
         Query2 q2=new Query2();
         int k=Integer.parseInt(inputk.getText());
+        System.out.println(k+" "+inputk.getText());
         auth=q2.parse(k);
+        System.out.println(auth);
         JLabel hey=new JLabel("No of results:"+Integer.toString(auth.size())+"         ");
-        JPanel lol=new JPanel();
+        lol=new JPanel();
         lol.add(hey);
         lol.add(next);
         centre.setLayout(new BorderLayout());
@@ -67,6 +70,7 @@ public class GuiQuery2 {
             flag=true;
             position=20;
         }
+        System.out.println(auth.size());
         for(int i=0;i<temp;i++){
             dataArray[i]=auth.get(i);
         }
@@ -81,7 +85,7 @@ public class GuiQuery2 {
             String[] dataArray=new String[20];
             int start=position;
             int temp;
-            if(position+19<=auth.size()-1){
+            if(position+19>=auth.size()-1){
                 flag=false;
                 temp=auth.size();
             }
@@ -97,9 +101,14 @@ public class GuiQuery2 {
             }
             DefaultTableModel model = new DefaultTableModel();
             model.addColumn("Author Name",dataArray);
+            centre.removeAll();
+            centre.revalidate();
+            centre.repaint();
+            centre.add(lol);
             table = new JTable(model);
-            centre.setLayout(new BorderLayout());
-            centre.add( new JScrollPane( table ), BorderLayout.CENTER );
+            centre.add(table);
+            centre.revalidate();
+            centre.repaint();
         }
     }
     class reset implements ActionListener {
