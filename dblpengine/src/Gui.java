@@ -71,10 +71,7 @@ public class Gui {
             }
         }
     }
-//    public static void main(String[] args){
-//        Gui hello=new Gui();
-//        hello.createGui();
-//    }
+
 }
 
 

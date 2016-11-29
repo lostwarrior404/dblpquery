@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * Created by Saksham on 11/28/2016.
  */
 public class GuiQuery1 {
+    String[][] all;
     JButton reset=new JButton("Reset");
     JButton search=new JButton("Submit");
     JComboBox list2;
@@ -25,6 +26,7 @@ public class GuiQuery1 {
     JTable table;
     int pos=0,qtype;
     JPanel centre,lol;
+    ArrayList<Publication> data;
     public void makegroup(){
         sortbydate = new JRadioButton("Sort by date");
         sortbyrelevance = new JRadioButton("Sort by relevance");
@@ -46,14 +48,7 @@ public class GuiQuery1 {
                 table.setValueAt("", i, j);
             }
     }
-    public void createTable() {
-        String data[][] = {{"101", "Amit", "670000","","",""},
-                {"102", "Jai", "780000","","",""},
-                {"101", "Sachin", "700000","","",""}};
-        String column[] = {"ID", "NAME", "SALARY","Word","Norm","Cool"};
-        JTable jt = new JTable(data, column);
-        return jt;
-    }
+
     public void query1gui(JPanel westbottom,JPanel centr){//set a flag for which type of query is happening
         westbottom.removeAll();
         centre=centr;
@@ -113,6 +108,7 @@ public class GuiQuery1 {
         comboBox.addItem("Author");
         comboBox.addItem("Title");
         comboBox.setEditable(false);
+        comboBox.addActionListener(new listype2());
         return comboBox;
     }
     public void setQtype(int a){
@@ -138,7 +134,7 @@ public class GuiQuery1 {
         flag=false;
         Query1 q1=new Query1();
         q1.parse(nametitle.getText(),qtype);
-        ArrayList<Publication> data=new ArrayList<Publication>();
+        data=new ArrayList<Publication>();
         if(sortbydate.isSelected()){
             data=q1.sortit(1);
         }
@@ -160,28 +156,58 @@ public class GuiQuery1 {
         lol.add(next);
         centre.setLayout(new BorderLayout());
         centre.add(lol,BorderLayout.NORTH);
-        DefaultTableModel model = new DefaultTableModel();
-        String[][] all=//call func of tushar;
+        all=Dataconverter.convert(data);
+        String[][] dataArray=new String[20][8];
         int temp=data.size()>20?20:data.size();
         if(data.size()>20){
             flag=true;
             position=20;
         }
-        System.out.println(data.size());
-
-        model.addColumn("Author Name",dataArray);
-        table = new JTable(model);
+        for(int i=0;i<temp;i++){
+            dataArray[i]=all[i];//check this
+        }
+        String[] column={"S no.","Authors","Title","Pages","Year","Volume","Journal/Booktitle","URL"};//check
+        table = new JTable(dataArray,column);
         centre.add( new JScrollPane( table ), BorderLayout.CENTER );
         centre.revalidate();
         centre.repaint();
-
     }
-
+    public void donext(){
+        if(flag){
+            String[] dataArray=new String[20];
+            int start=position;
+            int temp;
+            if(position+19>=data.size()-1){
+                flag=false;
+                temp=data.size();
+            }
+            else{
+                flag=true;
+                position=position+20;
+                temp=position;
+            }
+            int y=0;
+            for(int i=start;i<temp;i++){
+                //dataArray[y]=data.get(i);
+                ++y;
+            }
+            DefaultTableModel model1 = new DefaultTableModel();
+            model1.addColumn("Author Name",dataArray);
+            centre.removeAll();
+            centre.add(lol,BorderLayout.NORTH);
+            //centre.add(Box.createRigidArea(new Dimension(122,123)));
+            table = new JTable(model1);
+            centre.add( new JScrollPane( table ), BorderLayout.CENTER );
+            model1.fireTableDataChanged();
+            centre.revalidate();
+            centre.repaint();
+            centre.setVisible(true);
+        }
+    }
     class reset implements ActionListener{
         public void actionPerformed(ActionEvent e){GuiQuery1.this.rese();}}
     class submit implements ActionListener{
         public void actionPerformed(ActionEvent e){GuiQuery1.this.sub();}}
     class nex implements ActionListener{
-        public void actionPerformed(ActionEvent e){GuiQuery1.this.next();}}
-
+        public void actionPerformed(ActionEvent e){GuiQuery1.this.donext();}}
 }
